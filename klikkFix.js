@@ -83,12 +83,15 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     }
 
 });
+// Real Server (Production) API to send/receive data from
 
+// Automatically switch between local and production API
+// const BASE_URL = (window.location.hostname === "localhost") ? "http://127.0.0.1:5000/improve-text" : "https://klikkfix-backend.onrender.com/improve-text";
 
 // selve funksjonen til å forberede valgt tekst
 function processText(menuId, selectedText, tab) {
 
-    fetch("http://127.0.0.1:5000/improve-text", { // Sender valgte tekst til server siden for å forberede den
+    fetch("https://klikkfix-backend.onrender.com/improve-text", { // Sender valgte tekst til server siden for å forberede den
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: menuId, text: selectedText }),
@@ -121,7 +124,11 @@ function processText(menuId, selectedText, tab) {
         })
         .catch(error => {
             console.error("Fetch error:", error);
-            showNotification("Error", "Failed to fetch improved text.");
+            chrome.scripting.executeScript({
+                target: { tabId: tab.id },
+                function: showToast,
+                args: ["❌ Error: Failed to fetch improved text."]
+            });
         });
 }
 
