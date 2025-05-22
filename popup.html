@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>KlikkFix</title>
+    <link rel="stylesheet" href="popup.css">
+    <script src="Sortable.min.js"></script>
+    <script type="module" src="popup.js"></script> <!-- Load JS after HTML as an module -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+    <span class="container" id="root">
+        <!-- Login Page-->
+        <div class="titleContainer" id="loginTitle">
+            <h1>LOGIN</h1>
+        </div>
+        <div id="loginUI">
+            <div class="UI-content">
+                <button class="auth-btn google-btn">
+                    <img src="icons/Google_Icons-512.webp" alt="Google Logo">
+                    Continue with Google
+                </button>
+
+                <button class="auth-btn github-btn">
+                    <img src="icons/Github_Icon.png" alt="Github Logo">
+                    Continue with Github
+                </button>
+
+                <button class="auth-btn microsoft-btn">
+                    <img src="icons/microsoft_Icon.png" alt="Microsoft Logo">
+                    Continue with Microsoft
+                </button>
+
+            </div>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div class="titleContainer" id="dashboardTitle" style="display: none;">
+            <h1>DASHBOARD</h1>
+        </div>
+        <div id="dashboardUI" style="display: none;">
+            <div class="UI-content">
+                <div class="dashboardContainer">
+
+                    <div class="topLeft boxContent slider">
+
+                        <!-- ✅ Wrap slides in slider-track -->
+                        <div class="slider-track">
+                            <!-- Slide 1 -->
+                            <div class="slide">
+                                <div class="progressCircleContainer subscriptionScope">
+                                    <svg class="progressCircle" width="120" height="120" viewBox="0 0 120 120">
+                                        <circle class="bg" cx="60" cy="60" r="50" />
+                                        <circle class="progress" cx="60" cy="60" r="50" />
+                                        <text x="60" y="51" text-anchor="middle" class="progressLabel">Daily Req.</text>
+                                        <text x="60" y="70" text-anchor="middle" class="progressValue">16 / 25</text>
+                                    </svg>
+                                    <p class="slide1Text">Daily Requests. <a href="www.ahmettu.com" style="color: rgb(215, 223, 230); text-decoration: none;">Upgrade Your Plan</a></p>
+                                </div>
+                            </div>
+
+                            <!-- Slide 2 -->
+                            <div class="slide">
+                                <h3 class="MagicalSectionT"><label style="color: #9e33a0; font-size: 16px;"> MagicalClick </label> - Coming Soon for Premium Users</h3>
+                                <img class="MagicalClickLogo" src="/Icons/MagicalClickLogo-4.png" alt="Magical Click Logo"></img>   
+                                <p class="slide1Text supermodelT" style="position: absolute; bottom: 0; width: max-content; z-index: 10; margin-bottom: -5px;">All in once. The most powerful <label style="color: aliceblue;">AI-supermodel</label>  </p>   
+                            </div>
+
+                        </div> <!-- ✅ End of slider-track -->
+
+                        <!-- Navigation Controls -->
+                        <div class="slider-nav">
+                            <div class="nav-indicator nav-0 active"></div>
+                            <div class="nav-indicator nav-1"></div>
+                        </div>
+
+                    </div> <!-- ✅ End of slider -->
+
+
+                    <div class="topRight boxContent">
+
+                        <button class="userPlan-btn" id="userPlan">
+                            <div class="">Premium Plan</div>
+                        </button>
+
+                        <button class="profile-btn" id="profileBtn">
+                            <i class="fas fa-user-circle"></i>
+                            <div class="">Profile</div>
+                        </button>
+
+                        <button class="logout-btn">
+                            <i class="fas fa-times"></i>
+                            <span class="logout-text">Logout</span>
+                        </button>
+
+                    </div>
+
+                    <div id="all-tools" class="bottomLeft tool-box boxContent">
+                        <p class="tool-box-descriptor">All</p>
+                    </div>
+
+
+                    <div id="in-use-tools" class="bottom tool-box boxContent">
+                        <p class="tool-box-descriptor">In Use</p>
+                    </div>
+
+                    <div class="bottomRight boxContent float-up">
+                        <div class="BottomRightTopMenu">
+                            <button class="bottomRightTopMenuBtn active-tab" data-tab="personal">Personal Info</button>
+                            <button class="bottomRightTopMenuBtn" data-tab="account">Account Settings</button>
+                            <button class="bottomRightTopMenuBtn" data-tab="subscription">Subscription</button>
+                        </div>
+
+                        <div class="bottomRightMainSection" id="personal">
+                            <div class="bottomRightTop">
+                                <h1 style="color: #9e33a0; padding-bottom: 3px; margin-bottom: 5px; gap: 0px;">Profile
+                                </h1>
+                                <p style="color: #777; font-size: 14px; padding-top: 0px; margin: 0px; gap: 0px; ">This
+                                    is all data we are
+                                    saving about you. </p>
+                            </div>
+                            <div class="profileContainer">
+
+                                <div class="profileContainerLeftSide ">
+                                    <p>Logged in as:</p>
+                                    <p>Email</p>
+                                    <p>Provider</p>
+                                    <p>Plan:</p>
+                                </div>
+
+                                <div class="profileContainerRightSide" id="profileInfo">
+                                </div>
+                            </div>
+                            
+                            <!--
+                            <div class="profileBottomContainer">
+                                <button class="logoutProfile">Logout</button>
+                            </div>
+                            -->
+
+                        </div>
+
+                        <div class="bottomRightMainSection" id="account" style="display: none;">
+                            <div class="bottomRightTop">
+                                <h1 style="color: #9e33a0; padding-bottom: 3px; margin-bottom: 5px; gap: 0px;">Account
+                                </h1>
+                                <p style="color: #777; font-size: 14px; padding-top: 0px; margin: 0px; gap: 0px; "></p>
+                            </div>
+                            <div class="profileContainer">
+
+                                <div class="profileContainerLeftSide ">
+                                    <p>Logged in with provider:</p>
+                                    <p>Last Login:</p>
+                                </div>
+
+                                <div class="profileContainerRightSide" id="accountInfo">
+                                </div>
+                            </div>
+                            <div class="profileBottomContainer">
+                                <button class="deleteProfile">Delete User</button>
+                            </div>
+                        </div>
+
+                        <div class="bottomRightMainSection" id="subscription" style="display: none;">
+                            <div class="bottomRightTop">
+                                <h1 style="color: #9e33a0; padding-bottom: 3px; margin-bottom: 5px; gap: 0px;">Subscription
+                                </h1>
+                                <p style="color: #777; font-size: 14px; padding-top: 0px; margin: 0px; gap: 0px; ">Find the perfect subscription that fits you.</p>
+                            </div>
+                            <div class="profileContainer">
+
+                                <div class="profileContainerLeftSide ">
+                                    <p>Current Plan:</p>
+                                    <p>Daily Request Limit:</p>
+
+                                </div>
+
+                                <div class="profileContainerRightSide" id="subscriptionInfo">
+                                    <p>Basic</p>
+                                    <p>25</p>
+                                </div>
+
+                                <div class="profileContainerTotalRequests progressCircleContainer subscriptionScope">
+                                    <svg class="progressCircle" width="120" height="120" viewBox="0 0 120 120">
+                                      <!-- Background circle -->
+                                      <circle class="bg" cx="60" cy="60" r="50" />
+                                      
+                                      <!-- Foreground progress arc -->
+                                      <circle class="progress" cx="60" cy="60" r="50" />
+                                  
+                                      <!-- Centered text -->
+                                      <text x="60" y="51" text-anchor="middle" class="progressLabel">Requests</text>
+                                      <text x="60" y="70" text-anchor="middle" class="progressValue">16 / 25</text>
+                                    </svg>
+                                  </div>
+                                  
+                                  
+                                  
+                            </div>
+                            <div class="profileBottomContainer">
+                                <button class="upgradePlanProfile">Upgrade Plan</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!--User Plan Page to renew or upgrade-->
+        <div class="titleContainer" id="userPlanTitle" style="display: none;">
+            <h1>Choose Plan</h1>
+        </div>
+        <div class="userPlanUI" id="userPlanUI" style="display: none;">
+            <div class="UI-content">
+                    <div class="userPlanContainer">
+                        <div class="planContainer option1">
+                            <div class="planContainerTopSection">
+                                <div class="planBadge invisible-badge">.</div>
+                                <h2>Basic $0/month</h2>
+                            </div>
+                            <div class="planContainerBottomSection">
+                                <p>25 Requests per day</p>
+                                <p class="verticalLines"> | </p>
+                                <p>Core Tools Access</p>
+                                <p class="verticalLines"> | </p>
+                                <p class="feature-unavailable">Priority Processing</p>
+                                <p class="verticalLines"> | </p>
+                                <p class="feature-unavailable">Customizable Tools</p>
+                                <p class="verticalLines"> | </p>
+                                <p class="feature-unavailable">MagicalClick</p>
+                                <p class="verticalLines"> | </p>
+                                <p>Support: Standard</p>
+                            </div>
+                            <div class="planSelectBtnContainer">
+                                <button class="planSelectBtn">Select</button>
+                            </div>
+                        </div>
+                        <div class="planContainer option2">
+                            <div class="planContainerTopSection">
+                                <div class="planBadge">Most Popular</div>
+                                <h2>Pro $9.99/month</h2>
+                            </div>
+                            <div class="planContainerBottomSection">
+                                <p>100 Requests per day</p> 
+                                <p class="verticalLines"> | </p>
+                                <p>All Tools Access</p> 
+                                <p class="verticalLines"> | </p>
+                                <p>Priority Processing</p> 
+                                <p class="verticalLines"> | </p>
+                                <p class="feature-unavailable">Customizable Tools</p> 
+                                <p class="verticalLines"> | </p>
+                                <p class="feature-unavailable">MagicalClick</p> 
+                                <p class="verticalLines"> | </p>
+                                <p>Support: Fast</p>
+                            </div>
+                            <div class="planSelectBtnContainer">
+                                <button class="planSelectBtn">Select</button>
+                            </div>
+                        </div>
+                        <div class="planContainer option3">
+                            <div class="planContainerTopSection">
+                                <div class="planBadge invisible-badge">.</div>
+                                <h2>Premium $14.99/month</h2>
+                            </div>
+                            <div class="planContainerBottomSection">
+                                <p>Unlimited Requests</p> 
+                                <p class="verticalLines"> | </p>
+                                <p>All Tools Access</p> 
+                                <p class="verticalLines"> | </p>
+                                <p>Priority Processing</p> 
+                                <p class="verticalLines"> | </p>
+                                <p>Customizable Tools</p> 
+                                <p class="verticalLines"> | </p>
+                                <p>MagicalClick</p> 
+                                <p class="verticalLines"> | </p> 
+                                <p>Support: 24/7</p>
+                            </div>
+                            <div class="planSelectBtnContainer">
+                                <button class="planSelectBtn">Select</button>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+
+        <button id="expandViewBtn" class="expand-btn">
+            <i class="fas fa-expand"></i>
+        </button>
+    </span>
+    </body>
+
+</html>

@@ -1,0 +1,38 @@
+
+{
+    "users": {
+      "user1@gmail.com": {
+        "provider": "google",
+        "authToken": "xxxxxxxxxx",
+        "expirationTime": 1711234567890,
+        "lastLogin": 1711222222222,  
+        "tools": ["summarizeText", "translateText", "rewriteText"],
+        "plan": "Basic",
+        "usageCount": 5
+      },
+      "github:octocat": {
+        "provider": "github",
+        "authToken": "yyyyyyyyyy",
+        "expirationTime": 1719876543210,
+        "lastLogin": 1711222222222,  
+        "tools": ["solve", "expandText"],
+        "plan": "pro",
+        "usageCount": 28
+      },
+      "microsoft:emmanuel@company.com": {
+        "provider": "microsoft",
+        "authToken": "zzzzzzzzzz",
+        "expirationTime": 1724567890123,
+        "lastLogin": 1711222222222,  
+        "tools": ["shortenText", "summarizeText"],
+        "plan": "Premium",
+        "usageCount": 3
+      }
+    },
+  
+    "currentUser": "user1@gmail.com"
+  }
+  
+
+  
+  

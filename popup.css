@@ -1,0 +1,1025 @@
+/* Full-Screen Background */
+/* Prevent scrolling on the entire page */
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(90deg, #080112 85%, #1e0346 100%);
+    color: white;
+
+    /* Ensure everything is centered */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.container {
+    width: 95%;
+    height: 95vh;
+    max-width: 1000px;
+    max-height: 740px;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    /* ✅ Centers content vertically */
+    align-items: center;
+
+    margin-top: -50px;
+    position: relative;
+}
+
+@media (max-width: 800px) {
+
+    /* styles go here */
+    .titleContainer {
+        display: none;
+    }
+
+    .container {
+        width: 95%;
+        margin: auto;
+    }
+}
+
+.titleContainer {
+    font-size: 24px;
+    letter-spacing: 2px;
+    /* adjust value as needed */
+    color: #514b53;
+    opacity: 0.8;
+}
+
+
+
+/* Apply the same styles to both login and dashboard pages */
+#loginUI,
+#dashboardUI,
+#userPlanUI{
+    width: 100%;
+    height: 100%;
+    /* Ensure it takes full height */
+    max-width: 850px;
+    max-height: 600px;
+    text-align: center;
+    background: radial-gradient(circle at center bottom, rgba(106,13,173,0.3) 0%, rgba(0,0,0,0) 85%);
+
+    color: white;
+    box-shadow: 0px 0px 3px rgba(52, 2, 71, 0.367);
+    /* Flexbox for Centering Everything */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* ✅ Centers content vertically */
+    align-items: center;
+    /* ✅ Centers content horizontally */
+
+    border-radius: 10px;
+}
+
+
+/* Ensure inner content is centered inside */
+.UI-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* ✅ Center content vertically */
+    align-items: center;
+    /* ✅ Center content horizontally */
+    width: 100%;
+    height: 100%;
+    /* ✅ Force full height */
+}
+
+.PopupContainer {
+    width: 90%;
+    height: 90vh;
+    /* ✅ Allow enough space for centering */
+    max-width: 800px;
+    max-height: 600px;
+    text-align: center;
+    background: linear-gradient(200deg, #0a0a0a 75%, #431b7d 100%);
+    color: white;
+
+    /* Flexbox for Centering */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* ✅ Ensures everything inside is centered */
+    align-items: center;
+
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.dashboardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    max-width: 1000px;
+    /* 👈 constrain so it wraps after ~3 boxes */
+    align-content: flex-start;
+    /*Centereing*/
+    margin: 0 auto;
+    /* 👈 center the whole layout */
+    
+    justify-content: center;
+    /*Centering it horizontally (try flex-end or flex-start)*/
+}
+
+.userPlanContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    max-width: 1000px;
+    /* 👈 constrain so it wraps after ~3 boxes */
+    align-content: center;
+    /*Centereing*/
+    margin: 0 auto;
+    /* 👈 center the whole layout */
+    
+    justify-content: center;
+
+
+    align-items: stretch;
+    /*Centering it horizontally (try flex-end or flex-start)*/
+}
+
+.boxContent {
+    transition: box-shadow 0.3s ease, background-color 0.3s ease, opacity 0.3s ease; /* Smooth in both directions */
+    background-color: #0a0a0a;
+    padding: 10px;
+    z-index: 99;
+    opacity: 0.90;
+    background-color: rgba(5, 11, 34, 1); /* Semi-transparent background */
+}
+
+.boxContent:hover {
+    background-color: rgb(5, 11, 34);
+    z-index: 999;
+    opacity: 1;
+}
+
+
+.topLeft {
+    width: 39%;
+    height: 25%;
+    border-radius: 20px;
+    box-shadow: #0a0a0a;
+    margin: 10px;
+    background-color: rgb(5, 11, 34);
+}
+
+.topLeft:hover{
+    box-shadow: 0 2px 8px rgba(128, 0, 255, 0.7);
+}
+
+.top {
+    width: 10%;
+    height: 10%;
+    border-radius: 20px;
+    box-shadow: #0a0a0a;
+    margin: 10px;
+}
+
+.topRight {
+    width: 50%;
+    height: 10%;
+    border-radius: 20px;
+    box-shadow: #0a0a0a;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    background-color: #0f0f24;   
+    /*background-color: rgb(5, 11, 34);*/
+}
+
+.bottomLeft {
+    width: 17%;
+    height: 60%;
+    border-radius: 20px;
+    box-shadow: #0a0a0a;
+    margin: 10px;
+    transition: 0.4s ease-in-out;
+    background-color: rgb(5, 11, 34); 
+}
+
+.bottom {
+    width: 17%;
+    height: 60%;
+    border-radius: 20px;
+    box-shadow: #0a0a0a;
+    margin: 10px;
+    background-color: rgb(5, 11, 34);  
+}
+
+.bottomRight {
+    position: relative;
+    overflow: hidden;
+    width: 50%;
+    height: 77%;
+    border-radius: 20px;
+    box-shadow: #0a0a0a;
+    margin: 10px;
+    justify-content: center;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    background-color: #0f0f24;    
+}
+
+.bottomRight:hover{
+    border: none;
+    box-shadow: none;
+    background-color: #1a1a2e;
+
+}
+
+.bottomRight:hover .BottomRightTopMenu{
+    
+}
+
+
+.float-up {
+    align-self: flex-start; /* 👈 This lifts the bottom-right box upward */
+    margin-top: -10%;
+    /* optional tweak */
+}
+
+.active-tab {
+    color: white !important; 
+    background-color: rgb(144, 32, 172) !important;
+}
+  
+
+.BottomRightTopMenu{
+    min-width: 105%;
+    display: flex;
+    gap: 8px;
+    margin-left: 0px;
+    margin-top: -15px;
+    border-radius: 5px;
+    padding-top: 25px;
+    padding-bottom: 20px;
+    background-color: rgb(5, 11, 34);
+    margin-left: -10px;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.bottomRightTopMenuBtn{
+    padding: 10px 15px;
+    font-size: 16px;
+    
+    background-color: #6A0DAD;
+    color: rgba(207, 203, 203, 0.778);
+    gap: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    border: none;
+}
+
+.bottomRightTopMenuBtn:hover{
+    background-color: #BB86FC; /* 🎯 Replace here */
+}
+
+.bottomRightMainSection{
+    width: 100%;
+    height: 105%;
+    margin-top: 10px;
+    border-radius: 20px;
+    background-color: rgb(5, 11, 34);
+}
+
+.bottomRightTop{
+    width: 90%;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.profileContainer{
+    height: 45%;
+    width: 90%;
+    margin: auto;
+    display: flex;
+}
+
+.profileContainerLeftSide{
+    width: 60%;
+    height: max-content;  
+    display: flex;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif; /* ✅ Replace font */
+    letter-spacing: 0.2px; /* ✅ Softer spacing */
+    
+    justify-content: start;
+    flex-direction: column;
+    align-items: flex-start;
+
+    
+}
+
+.profileContainerRightSide {
+
+    max-width: 100%;
+    height: max-content;
+    
+    display: flex;
+    padding-bottom: 20px;
+
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif; /* ✅ Replace font */
+    letter-spacing: 0.2px; /* ✅ Softer spacing */
+    font-weight: 600;
+
+    justify-content: start;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+.profileBottomContainer{
+    width: 90%;
+    height: 10%;
+    margin: 20px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+
+}
+
+.deleteProfile{
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #dc2626;
+    color: white;
+    font-family: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+    z-index: 999;
+    transition: 0.3s ease;
+}
+
+.deleteProfile:hover{
+    background-color: rgb(175, 5, 5);
+    color: white;
+}
+
+.logoutProfile{
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    font-family: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+    z-index: 999;
+    transition: 0.3s ease;
+    background-color: #6A0DAD;
+}
+
+.logoutProfile:hover{
+    background-color: #BB86FC;
+}
+
+.upgradePlanProfile{
+    background-color: #28a745;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    font-family: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+    z-index: 999;
+    transition: 0.3s ease;
+}
+
+/* Ensure the login button is centered */
+.auth-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    gap: 10px;
+}
+
+/* Google button styling */
+.google-btn {
+    background-color: white;
+    color: black;
+}
+
+.google-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Github button styling*/
+.github-btn {
+    background-color: white;
+    color: black;
+}
+
+.github-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.microsoft-btn {
+    background-color: white;
+    color: black;
+}
+
+.microsoft-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+
+/* Hover Effect */
+.auth-btn:hover {
+    opacity: 0.8;
+}
+
+.expand-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease-in-out;
+}
+
+.expand-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+.expand-btn:hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.email-field {
+    display: inline-block;
+    max-width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 1.175em;        /* Ensures vertical space */
+    min-height: 1.175em;         /* Prevents collapsing to 0 height */
+    vertical-align: middle;
+}
+
+.profileContainerRightSide .email-field {
+    max-width: 250px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+/*User Plan section*/
+.planContainer {
+    width: 25%;
+    min-height: 400px; /* Ensures consistent height across plans */
+    background-color: rgb(5, 11, 34);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    box-shadow: 0 8px 20px rgba(120, 80, 255, 0.2);
+    transition: ease 0.2s;
+    border-radius: 30px;
+
+    display: flex;                /* Make it a flex container */
+    flex-direction: column;      /* Stack items vertically */
+    justify-content: space-between; /* Spread content from top to bottom */
+
+
+    margin: 10px;
+    padding: 20px;               /* A bit more internal spacing */
+
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 0.2px;
+}
+
+.planContainer h2 {
+    margin-bottom: 10px;
+}
+
+
+
+.planContainer:hover{
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    transform: scale(1.015);
+    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.planContainerContent {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.planContainerTopSection{
+    margin-bottom: 16px;
+}
+
+.planBadge {
+    display: inline-block;
+    background: linear-gradient(90deg, #ff7bff, #a94bff);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 6px rgba(169, 75, 255, 0.3);
+    animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+    0%   { box-shadow: 0 0 4px rgba(169, 75, 255, 0.3); }
+    50%  { box-shadow: 0 0 18px rgba(169, 75, 255, 0.6); }
+    100% { box-shadow: 0 0 4px rgba(169, 75, 255, 0.3); }
+}
+
+.invisible-badge {
+    visibility: hidden;
+    margin-bottom: 10px; /* Same as the real badge */
+}
+
+
+
+.planContainerBottomSection p {}
+
+.planSelectBtnContainer {
+    width: 100%;
+    margin-top: 20px; /* Adds space from features */
+    display: flex;
+    justify-content: center;
+}
+
+.planSelectBtn {
+    background: linear-gradient(90deg, #8f3ccf, #6e40c9);
+    color: white;
+    width: 100%;
+    margin-top: auto; /* This pushes the container to the bottom of the card */
+    padding: 12px 0;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    box-shadow: 0 8px 20px rgba(144, 85, 255, 0.35);
+
+
+}
+
+.planSelectBtn:hover {
+    opacity: 0.9;
+    transform: translateY(-1.5px);
+    box-shadow: 0 6px 18px rgba(110, 64, 201, 0.5);
+}
+
+
+.verticalLines{
+    color: rgba(255, 255, 255, 0.5);
+    user-select: none;
+}
+
+.feature-unavailable {
+    opacity: 0.3;
+    text-decoration: line-through;
+}
+
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    z-index: 10000;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards, fadeOut 0.5s forwards 3.5s;
+}
+
+/* Toast Colors */
+.toast.success {
+    background: #28a745;
+}
+
+/* Green */
+.toast.error {
+    background: #dc3545;
+}
+
+/* Red */
+.toast.info {
+    background-color: #555;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fade Out Animation */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
+
+.userPlan-btn {
+    position: absolute;
+    left: 0;
+    margin-left: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 20px;
+    width: 140px;
+    height: 40px;
+    background-color: #333;
+    color: rgb(255, 255, 255);
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    transition: 0.3s ease-in-out;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Share Tech Mono', monospace;
+    white-space: nowrap;
+ 
+} 
+
+.userPlan-btn:hover{
+    color: white;
+    background-color: #555;
+    opacity: 0.9;
+}
+
+.profile-btn {
+    position: absolute;
+    left: 50%;
+    margin-left: -50px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 20px;
+    width: 130px;
+    height: 40px;
+    background-color: #333;
+    color: rgb(255, 255, 255);
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    transition: 0.3s ease-in-out;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Share Tech Mono', monospace;
+    white-space: nowrap;
+} 
+
+.profile-btn:hover{
+    color: white;
+    background-color: #555;
+}
+
+.profile-btn i {
+    font-size: 16px;
+}
+
+
+.logout-btn {
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 20px;
+    width: 110px;
+    height: 40px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    overflow: hidden;
+    font-size: 16px;
+    will-change: transform, width; /* 🔥 boost perf */
+}
+
+.logout-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.logout-text {
+    /* 👈 hide by default */
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Share Tech Mono', monospace;
+    white-space: nowrap;
+    transition: opacity 0.5s ease, max-width 0.3s ease, visibility 0.5s ease;
+}
+
+.logout-btn:hover {
+    width: 100px; /* 👈 fixed instead of auto */
+    border-radius: 20px;
+
+    background-color: #555555;
+}
+
+.logout-btn:hover .logout-text {
+    display: inline;
+    /* 👈 show when hovered */
+    opacity: 1;
+}
+
+.tool-box {
+    min-height: 200px;
+    padding: 10px;
+    border: 2px dashed #666;
+    border-radius: 12px;
+    margin: 10px;
+    border: 2px solid transparent;
+    transition: border 0.3s ease;
+    will-change: transform;
+    
+} 
+
+.tool-box-descriptor{
+    font-size: 16px;
+    letter-spacing: 0.1;
+    font-weight: 600;
+    color: #555;
+}
+
+.tool-item {
+    background: #7b16c3;
+    color: rgba(255, 255, 255, 0.839);
+    padding: 10px 16px;
+    border-radius: 8px;
+    margin: 6px 0;
+    cursor: grab;
+    user-select: none;
+    will-change: transform;
+
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 0.4px;
+    font-weight: 600;
+}
+
+.tool-item:hover {
+    color: white;
+    background: #BB86FC
+}
+
+.tool-box.dashed-hover {
+    border: 2px dashed #666;
+}
+
+.profileContainerTotalRequests{
+    margin-left: 20px;
+}
+
+.progressCircle {
+    width: 120px;
+    height: 120px;
+}
+  
+  /* Background circle */
+  .progressCircle .bg {
+    fill: none;
+    stroke: #333;
+    stroke-width: 10;
+  }
+  
+  /* Progress arc */
+  .progressCircle .progress {
+    fill: none;
+    stroke: #9e33a0;
+    stroke-width: 10;
+    stroke-linecap: round;
+    stroke-dasharray: 314.16;       /* 2 * π * 50 */
+    stroke-dashoffset: 94.25;       /* Custom value for visual 70% progress */
+    transform: rotate(-90deg);
+    transform-origin: center;
+    filter: drop-shadow(0 0 4px #9e33a0);
+  }
+
+  .progressLabel,
+  .progressValue {
+    font-family: 'Inter', sans-serif;
+    fill: rgb(222, 222, 222);
+    text-anchor: middle;
+    dominant-baseline: middle;
+  }
+  
+  .progressLabel {
+    font-size: 12px;
+    fill: #aaa;
+    font-weight: 400;
+  }
+  
+  .progressValue {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+.totalRequestContainer{
+    display: flex !important;
+    align-items: left !important;
+    justify-content: left !important;
+}
+  
+
+.slider {
+    position: relative;
+    overflow: hidden;  /* ✅ Hide non-active slides */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.slider-track {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 200%;
+}
+
+.slide {
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.slide.active {
+    display: flex;
+}
+
+.slide1Text {
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: -3px;
+    text-align: center;
+    margin-top: 3px;
+    color: #b7b7b7;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif; /* ✅ Replace font */
+    letter-spacing: 0.2px; /* ✅ Softer spacing */
+
+}
+
+.slider-nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.nav-indicator {
+    height: 4px;
+    width: 18px;
+    border-radius: 2px;
+    background-color: #6A0DAD;
+    opacity: 0.5;
+    transition: width 0.3s ease, opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.nav-indicator.active {
+    width: 28px;
+    opacity: 1;
+}
+
+.MagicalSectionT{
+    z-index: 33;
+    color: rgb(213, 213, 213);
+    transition: all 0.3s ease-in-out;
+    font-weight: 600;
+    font-size: 14px;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease, visibility 1s ease;
+}
+
+.slide:hover .MagicalSectionT{
+    opacity: 1;
+    visibility: visible;
+}
+
+.MagicalClickLogo{
+    transition: transform 15s ease-in-out;
+    position: fixed;
+    width: 115px;
+    z-index: 3;
+    margin-bottom: 20px;
+}
+
+/* Rotate on parent hover */
+.slide:hover .MagicalClickLogo {
+    transform: rotate(180deg);
+    filter: blur(0.8px);
+    z-index: 3;
+}
+
+
+.slide:hover .MagicalSectionT {
+    color: white;
+    z-index: 33;
+}
+
+.supermodelT{
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 1s ease, visibility 1s ease;
+}
+
+.slide:hover .supermodelT{
+    opacity: 0.5;
+    filter: blur(1px);
+}
+
+
+/* Spin keyframes */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+
