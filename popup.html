@@ -4,6 +4,7 @@
 <head>
     <title>KlikkFix</title>
     <link rel="stylesheet" href="popup.css">
+    <script src="libs/lucide.min.js"></script>
     <script src="Sortable.min.js"></script>
     <script type="module" src="popup.js"></script> <!-- Load JS after HTML as an module -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -57,7 +58,7 @@
                                         <text x="60" y="51" text-anchor="middle" class="progressLabel">Daily Req.</text>
                                         <text x="60" y="70" text-anchor="middle" class="progressValue">16 / 25</text>
                                     </svg>
-                                    <p class="slide1Text">Daily Requests. <a href="www.ahmettu.com" style="color: rgb(215, 223, 230); text-decoration: none;">Upgrade Your Plan</a></p>
+                                    <p class="slide1Text">Daily Requests. <span id="upgradePlanLink" style="color: rgb(215, 223, 230); text-decoration: none; cursor: pointer;">Upgrade Your Plan</span></p>
                                 </div>
                             </div>
 
@@ -171,10 +172,9 @@
                             </div>
                             <div class="profileContainer">
 
-                                <div class="profileContainerLeftSide ">
+                                <div class="profileContainerLeftSide" id="subscriptionLeftSide">
                                     <p>Current Plan:</p>
                                     <p>Daily Request Limit:</p>
-
                                 </div>
 
                                 <div class="profileContainerRightSide" id="subscriptionInfo">
@@ -213,13 +213,20 @@
         <!--User Plan Page to renew or upgrade-->
         <div class="titleContainer" id="userPlanTitle" style="display: none;">
             <h1>Choose Plan</h1>
+            <div class="exitBtn">
+                <div class="planPageBackBtn">
+                    <button class="productPageBackBtn">
+                        <i data-lucide="chevron-left"></i> 
+                      </button>
+                </div>
+            </div>
         </div>
         <div class="userPlanUI" id="userPlanUI" style="display: none;">
             <div class="UI-content">
                     <div class="userPlanContainer">
                         <div class="planContainer option1">
                             <div class="planContainerTopSection">
-                                <div class="planBadge invisible-badge">.</div>
+                                <div class="trialBadge">1 Month</div>
                                 <h2>Basic $0/month</h2>
                             </div>
                             <div class="planContainerBottomSection">
@@ -236,7 +243,7 @@
                                 <p>Support: Standard</p>
                             </div>
                             <div class="planSelectBtnContainer">
-                                <button class="planSelectBtn">Select</button>
+                                <button class="planSelectBtn" data-plan="basic">Select</button>
                             </div>
                         </div>
                         <div class="planContainer option2">
@@ -258,7 +265,7 @@
                                 <p>Support: Fast</p>
                             </div>
                             <div class="planSelectBtnContainer">
-                                <button class="planSelectBtn">Select</button>
+                                <button class="planSelectBtn" data-plan="pro">Select</button>
                             </div>
                         </div>
                         <div class="planContainer option3">
@@ -280,14 +287,12 @@
                                 <p>Support: 24/7</p>
                             </div>
                             <div class="planSelectBtnContainer">
-                                <button class="planSelectBtn">Select</button>
+                                <button class="planSelectBtn" data-plan="premium">Select</button>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-
         <button id="expandViewBtn" class="expand-btn">
             <i class="fas fa-expand"></i>
         </button>

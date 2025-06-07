@@ -73,10 +73,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* ✅ Centers content vertically */
     align-items: center;
-    /* ✅ Centers content horizontally */
-
     border-radius: 10px;
 }
 
@@ -361,29 +358,36 @@ body {
 
 }
 
-.deleteProfile{
-    padding: 10px 20px;
-    border-radius: 5px;
-    background-color: #dc2626;
+.deleteProfile {
+    padding: 8px 16px;
+    border-radius: 6px;
+    background-color: #c0392b; /* Slightly darker & muted red */
     color: white;
-    font-family: 16px;
-    font-weight: 600;
-
+    font-size: 14px; /* Fix: was using font-family incorrectly */
+    font-weight: 500;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    border: none;
     cursor: pointer;
     z-index: 999;
-    transition: 0.3s ease;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    box-shadow: 0 2px 6px rgba(255, 0, 0, 0.15); /* subtle red glow */
 }
 
-.deleteProfile:hover{
-    background-color: rgb(175, 5, 5);
-    color: white;
+.deleteProfile:hover {
+    background-color: #a93226; /* Deeper red on hover */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(255, 0, 0, 0.25);
+    
 }
+
 
 .logoutProfile{
     padding: 10px 20px;
     border-radius: 5px;
     color: rgb(255, 255, 255);
-    font-family: 16px;
+    font-size: 16px;
     font-weight: 600;
 
     cursor: pointer;
@@ -395,7 +399,7 @@ body {
 .logoutProfile:hover{
     background-color: #BB86FC;
 }
-
+/*
 .upgradePlanProfile{
     background-color: #28a745;
     padding: 10px 20px;
@@ -408,6 +412,65 @@ body {
     z-index: 999;
     transition: 0.3s ease;
 }
+
+.upgradePlanProfile {
+    background: linear-gradient(90deg, #8224e3, #9f3ed5); 
+    color: #f8f3ff;
+    padding: 8px 16px;
+    font-size: 13.5px;
+    font-weight: 500;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    border: 1px solid rgba(255, 255, 255, 0.08); 
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(139, 92, 246, 0.2);
+    transition: all 0.2s ease-in-out;
+    letter-spacing: 0.35px;
+    text-align: center;
+    border: none;
+  }
+  
+  .upgradePlanProfile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(168, 85, 247, 0.35);
+
+    cursor: pointer;
+  }
+  
+*/
+.upgradePlanProfile {
+    background: linear-gradient(90deg, #8224e3, #9f3ed5); 
+    color: #f8f3ff;
+    padding: 10px 16px;
+    font-size: 13.5px;
+    font-weight: 500;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    border: 1px solid rgba(255, 255, 255, 0.08); 
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(139, 92, 246, 0.2);
+    transition: all 0.2s ease-in-out;
+    letter-spacing: 0.35px;
+    text-align: center;
+    border: none;
+  }
+  
+  .upgradePlanProfile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(168, 85, 247, 0.35);
+
+    cursor: pointer;
+  }
+  
+  
+  @keyframes pulse {
+    0% { box-shadow: 0 0 10px #ff7ed4; }
+    50% { box-shadow: 0 0 20px #a855f7; }
+    100% { box-shadow: 0 0 10px #ff7ed4; }
+  }
+  
+  .upgradePlanProfile.pulse {
+    animation: pulse 1.5s infinite;
+  }
+  
 
 /* Ensure the login button is centered */
 .auth-btn {
@@ -568,6 +631,23 @@ body {
     animation: pulseGlow 2s ease-in-out infinite;
 }
 
+.trialBadge {
+    display: inline-block;
+    background: linear-gradient(90deg, #777, #2f2f2f); /* Darker gray gradient */
+    color: #e5e5e5;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    opacity: 0.95;
+}
+
+
+
 @keyframes pulseGlow {
     0%   { box-shadow: 0 0 4px rgba(169, 75, 255, 0.3); }
     50%  { box-shadow: 0 0 18px rgba(169, 75, 255, 0.6); }
@@ -602,7 +682,6 @@ body {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
-
     box-shadow: 0 8px 20px rgba(144, 85, 255, 0.35);
 
 
@@ -844,8 +923,40 @@ body {
     border: 2px dashed #666;
 }
 
+.tool-item.locked {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: block;
+}
+
 .profileContainerTotalRequests{
     margin-left: 20px;
+}
+
+.current-plan-label {
+    margin-top: 8px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: greenyellow;
+    padding: 4px 10px;
+    border-radius: 6px;
+    display: inline-block;
+    text-align: center;
+    letter-spacing: 0.4px;
+    font-family: 'Inter', sans-serif;
+}
+  
+.expired-plan-label{
+    margin-top: 5px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgb(131, 119, 119);
+    padding: 4px 10px;
+    border-radius: 6px;
+    display: inline-block;
+    text-align: center;
+    letter-spacing: 0.4px;
+    font-family: 'Inter', sans-serif;
 }
 
 .progressCircle {
@@ -881,6 +992,14 @@ body {
     dominant-baseline: middle;
   }
   
+  .unlimitedT{
+    font-family: 'Inter', sans-serif;
+    fill: rgb(222, 222, 222);
+    color: white;
+    text-anchor: middle;
+    font-size: 0.7em;
+  }
+
   .progressLabel {
     font-size: 12px;
     fill: #aaa;
@@ -1020,6 +1139,57 @@ body {
         transform: rotate(360deg);
     }
 }
+
+.planPageBottomContainer {
+
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* 🔑 pushes children to edges */
+    align-items: flex-start; /* keeps items aligned to top vertically */
+    padding: 10px;
+    margin: 10px;
+    gap: 24px;
+}
+
+.planPageBackBtn{
+    padding-left: 20px;
+}
+
+.exitBtn {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 30px;
+    margin-top: 70px;
+    z-index: 10; /* 🛡 Sikrer at knappen ligger over alt */
+  }
+  
+  .planPageBackBtn button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(90deg, #8f3ccf, #6e40c9);
+    color: #d4d4d4;
+    border: none;
+    border-radius: 9999px; /* ✨ Full sirkel for balanse */
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 10px 10px; 
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0px 4px 8px rgba(123, 29, 190, 0.655);
+    backdrop-filter: blur(6px); /* optional glassy feel */
+  }
+  
+  .planPageBackBtn button:hover {
+    color: #ffffff;
+    transform: translateY(-1px) scale(1.03);
+    box-shadow: 0px 4px 8px rgb(145, 50, 212, 0.5);
+    background: linear-gradient(90deg, #9a45db, #743ce2);
+  }
+  
+
+
 
 
 

@@ -258,6 +258,33 @@ function showToast(message) {
     }, 4000);
 }
 
+// ✅ Keyboard Shortcut Listener (Ctrl+Shift+K)
+chrome.commands?.onCommand.addListener((command) => {
+    if (command === "trigger-klikkfix") {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            chrome.scripting.executeScript({
+                target: { tabId: tabs[0].id },
+                function: () => {
+                    const selected = window.getSelection().toString();
+                    if (selected.length > 0) {
+                        chrome.runtime.sendMessage({ action: "klikkfix-shortcut", text: selected });
+                    } else {
+                        alert("⚠️ No text selected.");
+                    }
+                }
+            });
+        });
+    }
+});
+
+// Handle shortcut trigger message
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === "klikkfix-shortcut") {
+        // You can customize the tool ID; here we default to "improveText"
+        processText("improveText", request.text, sender.tab);
+    }
+});
+
 
 
 // ✅ Show Loading Indicator at Bottom Right
