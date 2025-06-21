@@ -12,9 +12,7 @@
     "tabs"
   ],
   "host_permissions": [
-    "https://klikkfix-backend.onrender.com/*",
-    "https://github.com/*",
-    "https://api.github.com/*"
+    "https://klikkfix-backend.onrender.com/*"
   ],
   "oauth2": {
     "client_id": "743752691512-devhp8au5vetvoa136bqmoot0emc84go.apps.googleusercontent.com",
