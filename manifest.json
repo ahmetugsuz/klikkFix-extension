@@ -40,16 +40,7 @@
       "128": "Icons/magicDesign128.png"
     },
     "default_title": "KlikkFix AI Assistant"
-  },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["contentScript.js"],
-      "all_frames": true,
-      "run_at": "document_idle"
-    }
-  ],
-  
+  },  
   "commands": {
     "trigger-improve": {
       "suggested_key": {
