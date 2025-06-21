@@ -8,10 +8,8 @@
     "scripting",
     "activeTab",
     "storage",
-    "system.display",
     "identity",
-    "tabs",
-    "cookies"
+    "tabs"
   ],
   "host_permissions": [
     "https://klikkfix-backend.onrender.com/*",
