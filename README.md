@@ -102,5 +102,10 @@ Feature suggestions and pull requests are welcome. Please open an issue before s
 
 ---
 
+## 🗃️ License
+
+KlikkFix is open source for **non-commercial use** under a custom license.  
+See [LICENSE](./LICENSE) for details or email support@klikkfix.com for commercial use inquiries.
+
 **Created by Mr. Ahmet**  
 Fullstack Developer – Creator of KlikkFix and MagicalClick
