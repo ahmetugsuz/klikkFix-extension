@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "KlikkFix",
-  "version": "2.0",
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAt/skCq/pfhKliFaYHr6zNSmZx6zmC20YjSpM1UNRZL2HxsD3gjm6LdcgT4fEUtyXIk9V8T6M2nKbLxtC8HXDwv9jISmC0XChxcfICGFmwiP3NvP7CUyT3fHulRW1Xi1WPg64D36d/R7GcGEjnckQRBa7qvdE3nZZAvZISzHO7Tv3gLY6VwBzGHO80xIRntDR5rHQTb2EsAredyjfdLUorBi/uW7VptAmOWXDqCAQQ5raO/MYf6+IOi9lI3UKEWb2n3CVcfbxqZ2HMIGo54LY3HV+GqUKjwi67m9lsIc0PkaPIrYQPwbhkHE4Rv60zNvTRZ2hkDXC5W5f0D3dpT19rQIDAQAB",
+  "version": "2.0",
   "permissions": [
     "contextMenus",
     "scripting",
@@ -30,23 +30,48 @@
     "resources": ["icons/*", "popup.html"],
     "matches": ["<all_urls>"]
   }],
+  "icons": {
+    "16": "Icons/magicDesign16.png",
+    "48": "Icons/magicDesign48.png",
+    "128": "Icons/magicDesign128.png"
+  },
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "icons/icon16.png",
-      "32": "icons/icon32.png",
-      "48": "icons/icon48.png",
-      "128": "icons/icon128.png"
+      "16": "Icons/magicDesign16.png",
+      "32": "Icons/magicDesign32.png",
+      "48": "Icons/magicDesign48.png",
+      "128": "Icons/magicDesign128.png"
     },
     "default_title": "KlikkFix AI Assistant"
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.js"],
+      "all_frames": true,
+      "run_at": "document_idle"
+    }
+  ],
+  
   "commands": {
-    "trigger-klikkfix": {
+    "trigger-improve": {
       "suggested_key": {
-        "default": "Ctrl+Shift+K"
+        "default": "Ctrl+Shift+I"
       },
-      "description": "Trigger KlikkFix AI on selected text"
+      "description": "Trigger Improve Text"
+    },
+    "trigger-professional": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+P"
+      },
+      "description": "Trigger Professional Text"
+    },
+    "trigger-solve": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S"
+      },
+      "description": "Trigger Solve"
     }
   }
-  
 }

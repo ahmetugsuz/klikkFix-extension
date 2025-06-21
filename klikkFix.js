@@ -83,6 +83,8 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 
 // Send selected text to backend for processing
 function processText(menuId, selectedText, tab) {
+    console.log("🧠 processText triggered:", menuId, selectedText);
+
     getCurrentUserKey().then(userKey => {
         if (!userKey) return;
 
@@ -120,9 +122,75 @@ function proceedWithTextProcessing(menuId, selectedText, tab, userKey, userData)
         if (data.improved_text) {
             chrome.scripting.executeScript({
                 target: { tabId: tab.id },
-                function: replaceSelectedText,
+                func: (newText) => {
+                    // Prevent duplicate execution
+                    if (window.__klikkfix_replacement_running__) return;
+                    window.__klikkfix_replacement_running__ = true;
+            
+                    // Embedded toast function
+                    function showToast(message) {
+                        let toast = document.createElement("div");
+                        toast.innerText = message;
+                        toast.style.fontSize = "18px";
+                        toast.style.position = "fixed";
+                        toast.style.bottom = "30px";
+                        toast.style.right = "30px";
+                        toast.style.background = "#444";
+                        toast.style.color = "white";
+                        toast.style.padding = "20px";
+                        toast.style.borderRadius = "5px";
+                        toast.style.zIndex = "10000";
+                        document.body.appendChild(toast);
+                        setTimeout(() => toast.remove(), 4000);
+                    }
+            
+                    try {
+                        const active = document.activeElement;
+            
+                        // Textarea or input field
+                        if (active && (active.tagName === "TEXTAREA" || active.tagName === "INPUT")) {
+                            const start = active.selectionStart;
+                            const end = active.selectionEnd;
+            
+                            if (start !== end) {
+                                active.setRangeText(newText, start, end, "end");
+                                active.selectionStart = active.selectionEnd = start + newText.length;
+                                showToast("✅ Text replaced in input.");
+                            } else {
+                                showToast("⚠️ Please select some text first.");
+                            }
+                            return;
+                        }
+            
+                        // Contenteditable or page selection
+                        const sel = window.getSelection();
+                        if (sel && sel.rangeCount) {
+                            const range = sel.getRangeAt(0);
+                            range.deleteContents();
+                            range.insertNode(document.createTextNode(newText));
+                            showToast("✅ Text replaced.");
+                            return;
+                        }
+            
+                        // Fallback
+                        if (document.execCommand("insertText", false, newText)) {
+                            showToast("✅ Text inserted (fallback).");
+                        } else {
+                            showToast("⚠️ Failed to insert text.");
+                        }
+            
+                    } catch (err) {
+                        console.error("Replacement error:", err);
+                        showToast("❌ Replacement failed.");
+                    } finally {
+                        setTimeout(() => {
+                            window.__klikkfix_replacement_running__ = false;
+                        }, 100);
+                    }
+                },
                 args: [data.improved_text]
             });
+            
 
             chrome.scripting.executeScript({
                 target: { tabId: tab.id },
@@ -174,15 +242,19 @@ function proceedWithTextProcessing(menuId, selectedText, tab, userKey, userData)
 }
 
 
-// Replace selected text on the page
+// Replace selected text on the page-- NOT IN USE
 function replaceSelectedText(newText) {
+    console.log("🧠 replaceSelectedText CALLED with:", newText);
+    // 🛑 Prevent running more than once per call
+    if (window.__klikkfix_replacement_done__) return;
+    window.__klikkfix_replacement_done__ = true;
     try {
-        let activeElement = document.activeElement;
+        const activeElement = document.activeElement;
 
-        // ✅ Handle input fields (e.g., textboxes, textareas)
+        // ✅ Step 1: Handle textareas/inputs (original logic)
         if (activeElement && (activeElement.tagName === "INPUT" || activeElement.tagName === "TEXTAREA")) {
-            let start = activeElement.selectionStart;
-            let end = activeElement.selectionEnd;
+            const start = activeElement.selectionStart;
+            const end = activeElement.selectionEnd;
 
             if (start === end) {
                 showToast("⚠️ Please select some text to replace.");
@@ -195,24 +267,43 @@ function replaceSelectedText(newText) {
             return;
         }
 
-        // ✅ Handle text selected on web pages
-        let selection = window.getSelection();
-        if (!selection.rangeCount) {
+        // ✅ Step 2: Try normal content replacement via Range API
+        const selection = window.getSelection();
+        if (!selection || !selection.rangeCount) {
             showToast("⚠️ No text selected. Please highlight text to replace.");
             return;
         }
 
-        let range = selection.getRangeAt(0);
+        const range = selection.getRangeAt(0);
         range.deleteContents();
         range.insertNode(document.createTextNode(newText));
-        selection.removeAllRanges();
-        showToast("✅ AI successfully replaced the text!");
+        showToast("✅ Successfully replaced the text!");
+        return;
 
     } catch (error) {
-        console.error("❌ Error replacing text:", error);
+        console.warn("⚠️ Standard text replacement failed. Trying fallback...", error);
+    }
+
+    // ✅ Step 3: Fallback for Notion & contentEditable areas
+    try {
+        const success = document.execCommand("insertText", false, newText);
+        if (success) {
+            showToast("✅ Text successfully inserted (fallback)!");
+        } else {
+            showToast("⚠️ Unable to insert text automatically.");
+        }
+    } catch (fallbackError) {
+        console.error("❌ Fallback replacement failed:", fallbackError);
         showToast("❌ Failed to replace text. Try again.");
     }
+        // Reset flag after a moment (in case user uses again)
+        setTimeout(() => {
+            window.__klikkfix_replacement_done__ = false;
+        }, 100);
+    
+    
 }
+
 
 function incrementUserUsageCount(userKey, callback = () => {}) {
     // this function is to increment the daily requests made
@@ -258,33 +349,56 @@ function showToast(message) {
     }, 4000);
 }
 
-// ✅ Keyboard Shortcut Listener (Ctrl+Shift+K)
-chrome.commands?.onCommand.addListener((command) => {
-    if (command === "trigger-klikkfix") {
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            chrome.scripting.executeScript({
-                target: { tabId: tabs[0].id },
-                function: () => {
-                    const selected = window.getSelection().toString();
-                    if (selected.length > 0) {
-                        chrome.runtime.sendMessage({ action: "klikkfix-shortcut", text: selected });
-                    } else {
-                        alert("⚠️ No text selected.");
-                    }
-                }
-            });
+
+
+chrome.commands.onCommand.addListener((command) => {
+    console.log("🔥 Shortcut triggered:", command);
+
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        const tab = tabs[0];
+        if (!tab?.id) return;
+
+        chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            func: () => window.getSelection().toString(),
+        }, (injectionResults) => {
+            const selectedText = injectionResults?.[0]?.result || "";
+            console.log("👉 Shortcut selected text:", selectedText);
+
+            if (!selectedText) {
+                chrome.scripting.executeScript({
+                    target: { tabId: tab.id },
+                    function: showToast,
+                    args: ["⚠️ No text selected."],
+                });
+                return;
+            }
+
+            if (selectedText.length > 1000) {
+                chrome.scripting.executeScript({
+                    target: { tabId: tab.id },
+                    function: showToast,
+                    args: ["⚠️ Selected text is too long."],
+                });
+                return;
+            }
+
+            // ✅ Trigger AI with correct tool ID
+            const toolMap = {
+                "trigger-improve": "improveText",
+                "trigger-professional": "professionalText",
+                "trigger-solve": "solve",
+            };
+
+            const toolId = toolMap[command];
+            if (toolId) {
+                processText(toolId, selectedText, tab);
+            }
         });
-    }
+    });
 });
 
-// Handle shortcut trigger message
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.action === "klikkfix-shortcut") {
-        // You can customize the tool ID; here we default to "improveText"
-        processText("improveText", request.text, sender.tab);
-    }
-});
-
+  
 
 
 // ✅ Show Loading Indicator at Bottom Right
@@ -325,5 +439,11 @@ function hideLoadingIndicator() {
 }
 
 
-
-
+/*
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === "textSelected") {
+        console.log("🟢 Tekst mottatt fra contentScript:", request.text);
+        // Valgfritt: Lagre i background eller start KlikkFix-flyt
+    }
+});
+*/
